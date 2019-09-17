@@ -32,8 +32,8 @@ class Page1(QWizardPage):
         self.setTitle('Bucky')
         self.setSubTitle('Select profile of the customer you want to get backup')
         self.customer_lb = QtWidgets.QLabel(self)
+        self.provider_cmbx = QComboBox(self)
         self.customer_cmbox = QComboBox(self)
-        self.customer_list = Util.getProfiles
         self.customer_list = Util.getProfiles() if Util.getProfiles() is not True else sys.exit(127)
         self.customer_cmbox.addItem("Select an account")
         self.customer_cmbox.addItems(self.customer_list)
@@ -45,9 +45,16 @@ class Page1(QWizardPage):
         layout.addWidget(self.customer_cmbox)
         layout.addWidget(self.checkAll_cb)
         layout.addWidget(self.listinstance_lv)
+        self.provider_cmbx.currentTextChanged.connect(self.setaccount)
         self.customer_cmbox.currentTextChanged.connect(self.setList)
         self.checkAll_cb.stateChanged.connect(self.selectAll)
         self.setLayout(layout)
+
+
+
+
+    def setaccount(self, provider):
+        pass
 
     def selectAll(self, check):
         model = QStandardItemModel()
